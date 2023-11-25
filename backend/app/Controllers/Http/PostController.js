@@ -1,5 +1,3 @@
-// app/Controllers/Http/PostController.js
-
 const Post = use('App/Models/Post');
 
 class PostController {

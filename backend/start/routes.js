@@ -1,7 +1,9 @@
 'use strict'
+import Route from "@ioc:Adonis/Core/Route";
 
-// start/routes.js
 
+//Auth Routes
+import "App/Controllers/Http/Api/Auth/auth";
 Route.group(() => {
     Route.post('auth/signup', 'AuthController.signup');
     Route.post('auth/login', 'AuthController.login');
@@ -38,7 +40,13 @@ Route.group(() => {
     Route.get('notifications', 'NotificationController.index').middleware('auth');
     Route.put('notifications/:id/mark-as-read', 'NotificationController.markAsRead').middleware('auth');
   }).prefix('api');
-/** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
 
-Route.on('/').render('welcome')
+Route.get("/", async ({ response }) => {
+  return response.json({ response: "Welcome to Scl Media API" });
+});
+
+Route.get("*", (ctx) => {
+  return ctx.response
+    .status(404)
+    .send({ response: "Sorry, this route does not exist" });
+});
